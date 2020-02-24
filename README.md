@@ -1,7 +1,7 @@
 # maven-scm-provider-dimensionscm
 Maven SCM Provider for Micro Focus Dimensions CM ([https://www.microfocus.com/products/dimensions-cm](https://www.microfocus.com/products/dimensions-cm))
 
-##URL Format
+## URL Format
 
 
 `scm:dimensionscm://username:password@hostname:[port number]/databasename@connection/product/stream/[directory]`
@@ -17,15 +17,15 @@ where:
 - stream - Specifies the name of the stream to use.
 - [directory] - Specifies an optional path to a directory within the stream.
 
-###Example URL:
+### Example URL:
 
 scm:dimensionscm://dinesh:mypassword@cmserver:671/cm\_typical@dim14/qlarius/java\_brancha\_str
 
 This will authenticate to Dimensions CM as the user dinesh, to the server called cmserver (on port 671).  It will connect to the base database cm\_typical using the dim14 connection.  SCM operations will be performed in the QLARIUS product in the stream JAVA\_BRANCHA\_STR.
 
-##SCM Commands
+## SCM Commands
 
-###scm:add 
+### scm:add 
 Deliver newly created files to the stream.
 
 Attributes:   
@@ -38,7 +38,7 @@ Attributes:
     For example: `-Dexcludes="**/base/*,**/*.xml"`
 - message – comment/message to apply to the delivery.
 
-###scm:checkin 
+### scm:checkin 
 Deliver updated/deleted/created files to the stream. Delivery of newly created files is switched off by default (you can enable it by specifying the attribute `add`).  
 
 Attributes:
@@ -54,7 +54,7 @@ Attributes:
 - dimensionscm.relativeLocation - property for passing a project/stream relative location.  
     For example: `-Ddimensionscm.relativeLocation="src/main/java"`
 
-###scm:checkout
+### scm:checkout
 Get a fresh copy of the latest source from the configured stream. Overwrites any local changes.
 
 Attributes:
@@ -66,7 +66,7 @@ Attributes:
     For example: `-Ddimensionscm.baseline="bsl1"`
 - dimensionscm.relativeLocation - property for passing a project/stream relative location.
 
-###scm:update
+### scm:update
 Update the local working copy with the latest source from the configured stream.
 Does not overwrite local changes.
 
@@ -78,7 +78,7 @@ Attributes:
 - dimensionscm.baseline - property for passing a baseline name, used to update the work area from the specified baseline rather than a stream.
 - dimensionscm.relativeLocation - property for passing a project/stream relative location.
 
-###scm:changelog
+### scm:changelog
 Display the changelog contents on the console.
 
 Attributes:
@@ -90,7 +90,7 @@ Attributes:
 - dimensionscm.filename – parameter which allows filtering the output of the LOG command by filename/file pattern.  
     For example: `-Ddimensionscm.filename="**/*.java"`
 
-###scm:status
+### scm:status
 Displays the modification status of the files in the configured stream.
 
 Attributes:
@@ -100,7 +100,7 @@ Attributes:
 - dimensionscm.add - property (boolean value) for enabling or disabling display of additions.
 - dimensionscm.all - property (boolean value) for enabling or disabling whether foreign content is displayed.
 
-###scm:tag
+### scm:tag
 Create a release baseline from the current stream version.
 
 Attributes:
