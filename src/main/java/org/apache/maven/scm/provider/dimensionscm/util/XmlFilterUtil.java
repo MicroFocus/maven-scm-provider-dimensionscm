@@ -37,6 +37,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class XmlFilterUtil {
 
@@ -61,16 +63,16 @@ public class XmlFilterUtil {
         fillRules(includes, document, root, "includes");
         fillRules(excludes, document, root, "excludes");
 
-        String xmlFilePath = System.getProperty("java.io.tmpdir") + "user_filters.xml";
+        Path xmlFilePath = Paths.get(System.getProperty("java.io.tmpdir"), "user_filters.xml");
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource domSource = new DOMSource(document);
-        StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+        StreamResult streamResult = new StreamResult(xmlFilePath.toFile());
 
         transformer.transform(domSource, streamResult);
 
-        return xmlFilePath;
+        return xmlFilePath.toString();
     }
 
 

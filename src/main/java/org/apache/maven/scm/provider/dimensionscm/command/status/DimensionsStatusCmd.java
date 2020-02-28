@@ -43,6 +43,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class DimensionsStatusCmd extends AbstractStatusCommand {
@@ -51,7 +52,7 @@ public class DimensionsStatusCmd extends AbstractStatusCommand {
 
     private StatusScmResult internalExecute(DimensionsScmProviderRepository repository, ScmFileSet scmFileSet) throws ScmException, TransformerException, ParserConfigurationException {
         String localRepoPath = scmFileSet.getBasedir().getAbsolutePath();
-        String tmpDir = System.getProperty("java.io.tmpdir") + LOG_FILE_NAME;
+        String tmpDir = Paths.get(System.getProperty("java.io.tmpdir"), LOG_FILE_NAME).toString();
         String xmlFilePath = XmlFilterUtil.createFilterXml(scmFileSet);
 
         String allParam = ParameterUtil.getSystemAll(true) ? "all" : null;
