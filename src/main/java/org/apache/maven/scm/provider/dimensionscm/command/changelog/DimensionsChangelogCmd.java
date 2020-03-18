@@ -1,26 +1,23 @@
-/*
-(c) Copyright 2020 Micro Focus or one of its affiliates.
-
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
- *
- */
-
 package org.apache.maven.scm.provider.dimensionscm.command.changelog;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.scm.ScmBranch;
@@ -41,38 +38,52 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DimensionsChangelogCmd extends AbstractChangeLogCommand {
+/**
+ * Dimensions CM implementation for Maven's AbstractChangeLogCommand.
+ */
+public class DimensionsChangelogCmd extends AbstractChangeLogCommand
+{
 
-    private ChangeLogScmResult internalExecute(DimensionsScmProviderRepository repository, Date startDate, Date endDate) throws ScmException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String fromDate = startDate != null ? simpleDateFormat.format(startDate) : StringUtils.EMPTY;
-        String toDate = endDate != null ? simpleDateFormat.format(endDate) : StringUtils.EMPTY;
+    private ChangeLogScmResult internalExecute( DimensionsScmProviderRepository repository,
+        Date startDate, Date endDate ) throws ScmException
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+        String fromDate = startDate != null ? simpleDateFormat.format( startDate ) : StringUtils.EMPTY;
+        String toDate = endDate != null ? simpleDateFormat.format( endDate ) : StringUtils.EMPTY;
 
         String filenameParam = ParameterUtil.getSystemFilename();
-        String directoryPathParam = StringUtils.isBlank(repository.getDmDirectoryPath()) ? "" : repository.getDmDirectoryPath().concat("/**");
+        String directoryPathParam = StringUtils.isBlank(
+            repository.getDmDirectoryPath() ) ? "" : repository.getDmDirectoryPath().concat( "/**" );
 
-        List<String> changelogCmd = new Command.Builder("log", repository)
-                .addParameter("from_time", fromDate)
-                .addParameter("to_time", toDate)
-                .addParameter("filename", StringUtils.isBlank(filenameParam) ? directoryPathParam : filenameParam)
-                .addParameter("workset", repository.getDmProjectSpec())
+        List<String> changelogCmd = new Command.Builder( "log", repository )
+                .addParameter( "from_time", fromDate )
+                .addParameter( "to_time", toDate )
+                .addParameter( "filename", StringUtils.isBlank( filenameParam ) ? directoryPathParam : filenameParam )
+                .addParameter( "workset", repository.getDmProjectSpec() )
                 .build()
                 .getCommandWithLogin();
 
-        boolean ok = CommandExecutor.getInstance().executeCmd(changelogCmd, getLogger());
+        boolean ok = CommandExecutor.getInstance().executeCmd( changelogCmd, getLogger() );
 
-        if (!ok)
-            throw new ScmException("Changelog command execution was failed.");
+        if ( !ok )
+        {
+            throw new ScmException( "Changelog command execution was failed." );
+        }
 
-        return new ChangeLogScmResult("", new ChangeLogSet(new ArrayList<>(), startDate, endDate));
+        return new ChangeLogScmResult( "", new ChangeLogSet( new ArrayList<>(), startDate, endDate ) );
     }
 
     @Override
-    protected ChangeLogScmResult executeChangeLogCommand(ScmProviderRepository repository, ScmFileSet fileSet, Date startDate, Date endDate, ScmBranch branch, String datePattern) throws ScmException {
-        try {
-            return internalExecute((DimensionsScmProviderRepository) repository, startDate, endDate);
-        } catch (Exception e) {
-            return new ChangeLogScmResult(null, DimensionsConstants.COMMAND_FAILED, e.getMessage(), false);
+    protected ChangeLogScmResult executeChangeLogCommand( ScmProviderRepository repository, ScmFileSet fileSet,
+        Date startDate, Date endDate, ScmBranch branch, String datePattern ) throws ScmException
+    {
+        try
+        {
+            return internalExecute( (DimensionsScmProviderRepository) repository, startDate, endDate );
+        } 
+        catch ( Exception e )
+        {
+            return new ChangeLogScmResult( null, DimensionsConstants.COMMAND_FAILED, e.getMessage(), false );
         }
     }
 }
