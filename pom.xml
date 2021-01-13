@@ -30,18 +30,37 @@
         <relativePath></relativePath>
     </parent>
 
+    <groupId>com.microfocus.adm.pulse</groupId><!-- ?? -->
     <artifactId>maven-scm-provider-dimensionscm</artifactId>
 
     <name>Maven SCM Dimensions CM Provider</name>
     <description>SCM Provider implementation for Micro Focus Dimensions CM (https://www.microfocus.com/).</description>
+    <url>https://github.com/MicroFocus/maven-scm-provider-dimensionscm</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <organization>Micro Focus</organization>
+            <organizationUrl>https://www.microfocus.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/MicroFocus/maven-scm-provider-dimensionscm.git</connection>
+        <developerConnection>scm:git:ssh://github.com:MicroFocus/maven-scm-provider-dimensionscm.git</developerConnection>
+        <url>http://github.com/MicroFocus/maven-scm-provider-dimensionscm/tree/master</url>
+    </scm>
 
     <properties>
         <!-- JDK version (used by compiler) and appropriate java version signature (used by animal-sniffer). -->
         <jdk.version>1.8</jdk.version>
         <java-signature-artifactId>java18</java-signature-artifactId>
-
-        <!-- Dimensions CM client library version. -->
-        <com.serena.dimensions-version>14.5.1-SNAPSHOT</com.serena.dimensions-version>
 
         <!-- Avoid source encoding warnings. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,7 +68,6 @@
 
         <specification-title>Maven SCM Dimensions CM Provider</specification-title>
     </properties>
-
 
     <dependencies>
         <dependency>
@@ -171,6 +189,39 @@
                         <exclude>**/.dm/**</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
