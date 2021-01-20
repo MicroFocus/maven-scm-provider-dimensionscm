@@ -30,7 +30,7 @@
         <relativePath></relativePath>
     </parent>
 
-    <groupId>com.microfocus.adm.pulse</groupId><!-- ?? -->
+    <groupId>com.microfocus.adm.dimensionscm</groupId>
     <artifactId>maven-scm-provider-dimensionscm</artifactId>
 
     <name>Maven SCM Dimensions CM Provider</name>
