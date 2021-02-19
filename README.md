@@ -4,7 +4,7 @@ Maven SCM Provider for Micro Focus Dimensions CM ([https://www.microfocus.com/pr
 ## URL Format
 
 
-`scm:dimensionscm://username:password@hostname:[port number]/databasename@connection/product/stream/[directory]`
+`scm:dimensionscm://username:password@hostname:[port number]/databasename@connection/product:stream/[directory]`
 
 where:
 
@@ -19,7 +19,7 @@ where:
 
 ### Example URL:
 
-scm:dimensionscm://dinesh:mypassword@cmserver:671/cm\_typical@dim14/qlarius/java\_brancha\_str
+scm:dimensionscm://dinesh:mypassword@cmserver:671/cm\_typical@dim14/qlarius:java\_brancha\_str
 
 This will authenticate to Dimensions CM as the user dinesh, to the server called cmserver (on port 671).  It will connect to the base database cm\_typical using the dim14 connection.  SCM operations will be performed in the QLARIUS product in the stream JAVA\_BRANCHA\_STR.
 
