@@ -1,6 +1,48 @@
 # maven-scm-provider-dimensionscm
 Maven SCM Provider for Micro Focus Dimensions CM ([https://www.microfocus.com/products/dimensions-cm](https://www.microfocus.com/products/dimensions-cm))
 
+## Overview
+
+The Maven SCM Provider for Dimensions CM implements common SCM operations such as updating a work area, delivering changes, creating a new tag/baseline etc from a Dimensions CM Stream or Project using Maven.
+
+### Pre-Requisites
+
+To use the Maven SCM Provider for Dimensions CM you will need to have the Dimensions CM client software installed and the `dmcli` executable on your system path.
+
+### Plugin Configuration
+
+The Maven SCM Provider for Dimensions CM has been deployed to Maven Central so there is no need to build it from sources or download it yourself manually.  
+
+To use the provider you must first declare it as a build plugin in your pom.xml, e.g:
+
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-plugin</artifactId>
+          <version>1.11.2</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.microfocus.adm.dimensionscm</groupId>
+              <artifactId>maven-scm-provider-dimensionscm</artifactId>
+              <version>1.11.2.1</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </build>
+
+Depending on your exact use case you may need to declare the Maven SCM Provider for Dimensions CM as a dependency of your maven-release-plugin or other plugins.
+
+## SCM Configuration
+
+You must also add a `<scm>` section to your pom.xml to define a URL which describes the Dimensions CM connection and Product/Stream/Project to use.  For example:
+
+    <scm>
+      <connection>scm:dimensionscm://myusername:mypassword@cmserver:671/cm_typical@dim14/qlarius:java_brancha_str</connection>
+    </scm>
+ 
+
 ## URL Format
 
 

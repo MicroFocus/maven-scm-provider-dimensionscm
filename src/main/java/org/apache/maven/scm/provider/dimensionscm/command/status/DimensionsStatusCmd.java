@@ -144,7 +144,8 @@ public class DimensionsStatusCmd extends AbstractStatusCommand
                         getLogger().info( String.format( "Imported status for \'%s\'", fileName ) );
                         break;
                     default:
-                        getLogger().info( String.format( "Unknown status for \'%s\'",  fileName ) );
+                        // Ignore unchanged files
+                        break;
                 }
             }
 
